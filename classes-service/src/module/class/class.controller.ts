@@ -27,7 +27,9 @@ export class ClassController {
   }
 
   @EventPattern('teacher.updated')
-  async updateTeacherInClass(@Payload() teacher: Record<string, string>) {
+  async updateTeacherInClass(
+    @Payload() teacher: { data: Record<string, string> },
+  ) {
     return this.classesService.updateTeacherInClass(teacher);
   }
 }

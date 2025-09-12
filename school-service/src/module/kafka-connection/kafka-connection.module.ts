@@ -31,8 +31,10 @@ export class KafkaConnectionModule implements OnModuleInit {
     const listeningTopics = [
       'create_student',
       'list_student',
+      'update_student',
       'create_teacher',
       'list_teacher',
+      'update_teacher',
       'create_classes',
       'list_classes',
     ];

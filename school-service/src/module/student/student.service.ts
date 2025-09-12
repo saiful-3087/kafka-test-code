@@ -26,13 +26,12 @@ export class StudentService {
     return firstValueFrom(this.kafkaClient.send('list_student', {}));
   }
 
-  async createTeacher(teacher: any) {
-    console.log('[School Service] Publishing teacher:', teacher);
-    const returnedData = await firstValueFrom(
-      this.kafkaClient.send('create_teacher', teacher),
+  readonly updateStudent = (
+    id: string,
+    body: { name: string; grade?: string },
+  ) => {
+    return firstValueFrom(
+      this.kafkaClient.send('update_student', { id, ...body }),
     );
-
-    console.log({ returnedData });
-    return { message: 'Teacher event published', data: returnedData };
-  }
+  };
 }

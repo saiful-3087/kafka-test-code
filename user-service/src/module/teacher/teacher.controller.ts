@@ -17,7 +17,7 @@ export class TeacherController {
     return this.teacherService.createTeacher(teacher);
   }
 
-  @MessagePattern('update_teache')
+  @MessagePattern('update_teacher')
   async updateTeacher(@Payload() teacher: ITeacher) {
     return this.teacherService.updateTeacher( teacher);
   }

@@ -48,11 +48,13 @@ export class ClassService {
     console.log('The affected student has been updated...');
   };
 
-  readonly updateTeacherInClass = (teacher: Record<string, string>) => {
+  readonly updateTeacherInClass = (teacher: {
+    data: Record<string, string>;
+  }) => {
     this.classess.forEach((cls) => {
-      if (cls.teacher && cls.teacher.id === teacher.id) {
-        cls.teacher.name = teacher.name ?? cls.teacher.name;
-        cls.teacher.subject = teacher.subject ?? cls.teacher.subject;
+      if (cls.teacher && cls.teacher.id === teacher.data.id) {
+        cls.teacher.name = teacher.data.name ?? cls.teacher.name;
+        cls.teacher.subject = teacher.data.subject ?? cls.teacher.subject;
       }
     });
 
