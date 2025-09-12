@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { SchoolModule } from './module/school/school.module';
 import { StudentModule } from './module/student/student.module';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { KafkaConnectionModule } from './module/kafka-connection/kafka-connection.module';
 import { TeacherModule } from './module/teacher/teacher.module';
+import { ClassModule } from './module/class/class.module';
 
 @Module({
   imports: [
@@ -22,10 +22,10 @@ import { TeacherModule } from './module/teacher/teacher.module';
         },
       },
     ]),
-    SchoolModule,
     StudentModule,
     KafkaConnectionModule,
     TeacherModule,
+    ClassModule,
   ],
 })
 export class AppModule {}
