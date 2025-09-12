@@ -1,10 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ClassModule } from './module/class/class.module';
+import { KafkaConnectionModule } from './module/kafka-connection/kafka-connection.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [ClassModule, KafkaConnectionModule],
 })
 export class AppModule {}
