@@ -1,6 +1,7 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Param } from '@nestjs/common';
 import { StudentService } from './student.service';
-import {  MessagePattern, Payload } from '@nestjs/microservices';
+import { MessagePattern, Payload } from '@nestjs/microservices';
+import { IStudent } from 'interfaces/student.interface';
 
 @Controller('student')
 export class StudentController {
@@ -12,7 +13,12 @@ export class StudentController {
   }
 
   @MessagePattern('create_student')
-  async createStudent(@Payload() student: Record<string, string>) {
+  async createStudent(@Payload() student: IStudent) {
     return this.studentService.createStudent(student);
+  }
+
+  @MessagePattern('update_student')
+  async updateStudent(@Payload() student: IStudent) {
+    return this.studentService.updateStudent(student);
   }
 }
