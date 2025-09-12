@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientKafka } from '@nestjs/microservices';
 import { ITeacher } from 'interfaces/teacher.interface';
+import * as _ from 'lodash';
 
 @Injectable()
 export class TeacherService {
@@ -35,6 +36,22 @@ export class TeacherService {
     this.kafkaClient.emit('teacher.updated', { data: { ...willbeUpdated } });
 
     return willbeUpdated;
+  };
+
+  readonly updateTeacherClass = (data: Record<string, unknown>) => {
+    console.log('[User Service]: Update affected Teacher');
+    console.log({ data });
+
+    const teacher = this.teachers.find(
+      (teac) => teac.id === _.get(data, 'teacher.id', ''),
+    );
+
+    if (!teacher) {
+      console.log('Can not find the affected teacher...');
+      return null;
+    }
+
+    teacher.subject = _.get(data, 'subject', '') as string;
   };
 
   readonly getTeacher = (id: string) => {

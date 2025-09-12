@@ -25,4 +25,13 @@ export class ClassService {
   async getAllClasses() {
     return firstValueFrom(this.kafkaClient.send('list_classes', {}));
   }
+
+  readonly updateClasses = (
+    id: string,
+    body: { name: string; grade?: string },
+  ) => {
+    return firstValueFrom(
+      this.kafkaClient.send('update_classes', { id, ...body }),
+    );
+  };
 }

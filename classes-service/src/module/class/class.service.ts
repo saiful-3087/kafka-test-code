@@ -1,9 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { ClientKafka } from '@nestjs/microservices';
 import { IClass } from 'src/interfaces/class.interface';
 
 @Injectable()
 export class ClassService {
   private readonly classess: IClass[] = [];
+
+  constructor(
+    @Inject('KAFKA_SERVICE') private readonly kafkaClient: ClientKafka,
+  ) {}
 
   readonly createClasses = (classes: IClass) => {
     console.log('[Class Service]: Create classes');
@@ -28,9 +33,13 @@ export class ClassService {
       return null;
     }
 
-    getClass.name = classes.name as string;
-    getClass.student = classes.student as Record<string, string>[];
-    getClass.teacher = classes.teacher as Record<string, string>;
+    getClass.name = classes.name ?? (getClass.name as string);
+    getClass.subject = classes.subject ?? getClass.subject;
+    getClass.student =
+      classes.student ?? (getClass.student as Record<string, string>[]);
+    getClass.teacher =
+      classes.teacher ?? (getClass.teacher as Record<string, string>);
+    this.kafkaClient.emit('class.updated', { ...getClass });
 
     return getClass;
   };

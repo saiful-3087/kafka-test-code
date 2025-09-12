@@ -37,6 +37,7 @@ export class KafkaConnectionModule implements OnModuleInit {
       'update_teacher',
       'create_classes',
       'list_classes',
+      'update_classes',
     ];
 
     listeningTopics.forEach((topic) => {
